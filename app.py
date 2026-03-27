@@ -52,25 +52,21 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ─────────────────────────────────────────────
-# 2. API KEY — Auto-load from Streamlit Secrets
-# ─────────────────────────────────────────────
-try:
-    api_key = st.secrets["GEMINI_API_KEY"]
-except Exception:
-    api_key = ""
-
-if not api_key:
-    st.error("⚠️ API Key கிடைக்கவில்லை. Streamlit Secrets-ல் GEMINI_API_KEY சேர்க்கவும்.")
-    st.stop()
-
-# ─────────────────────────────────────────────
-# 3. SIDEBAR — CASE METADATA ONLY
+# 2. SIDEBAR — API KEY + CASE METADATA
 # ─────────────────────────────────────────────
 with st.sidebar:
     st.image("https://upload.wikimedia.org/wikipedia/en/thumb/f/f9/Tamil_Nadu_Police_Logo.svg/200px-Tamil_Nadu_Police_Logo.svg.png", width=80)
     st.title("🔍 Case Details")
     st.divider()
 
+    # Secrets-ல் இருந்தால் auto-load, இல்லாவிட்டால் manual input
+    try:
+        api_key = st.secrets["GEMINI_API_KEY"]
+        st.success("🔑 API Key: Auto-loaded ✅")
+    except Exception:
+        api_key = st.text_input("Gemini API Key", type="password", placeholder="AIza...")
+
+    st.divider()
     st.subheader("📋 வழக்கு விவரங்கள்")
     fir_no   = st.text_input("குற்றம் எண் / ஆண்டு", placeholder="e.g., 123/2025")
     ps_name  = st.text_input("காவல் நிலையம்", placeholder="e.g., Virudhunagar Town PS")
