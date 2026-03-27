@@ -253,7 +253,7 @@ with col2:
                     }
 
                     # Fallback model loop — direct REST API (no SDK)
-                    fallback_models = ["gemini-1.5-flash", "gemini-2.0-flash", "gemini-1.5-pro"]
+                    fallback_models = ["gemini-2.0-flash", "gemini-flash-latest", "gemini-1.5-flash"]
                     mahazar_text = None
                     last_error = None
                     used_model = None
